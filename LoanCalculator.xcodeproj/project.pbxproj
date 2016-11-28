@@ -8,20 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		C64AA98D1DEA066500CB2325 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AA98C1DEA066500CB2325 /* AppDelegate.swift */; };
-		C64AA98F1DEA066500CB2325 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AA98E1DEA066500CB2325 /* ViewController.swift */; };
+		C64AA98F1DEA066500CB2325 /* LoanCalcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AA98E1DEA066500CB2325 /* LoanCalcViewController.swift */; };
 		C64AA9921DEA066500CB2325 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C64AA9901DEA066500CB2325 /* Main.storyboard */; };
 		C64AA9941DEA066500CB2325 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C64AA9931DEA066500CB2325 /* Assets.xcassets */; };
 		C64AA9971DEA066500CB2325 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C64AA9951DEA066500CB2325 /* LaunchScreen.storyboard */; };
+		C64AA9BD1DEC9B2400CB2325 /* LoanDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64AA9BC1DEC9B2400CB2325 /* LoanDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		C64AA9891DEA066500CB2325 /* LoanCalculator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LoanCalculator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C64AA98C1DEA066500CB2325 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C64AA98E1DEA066500CB2325 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C64AA98E1DEA066500CB2325 /* LoanCalcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanCalcViewController.swift; sourceTree = "<group>"; };
 		C64AA9911DEA066500CB2325 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C64AA9931DEA066500CB2325 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C64AA9961DEA066500CB2325 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C64AA9981DEA066500CB2325 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C64AA9BC1DEC9B2400CB2325 /* LoanDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoanDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,23 @@
 		C64AA98B1DEA066500CB2325 /* LoanCalculator */ = {
 			isa = PBXGroup;
 			children = (
+				C64AA9BE1DEC9B2C00CB2325 /* Views */,
 				C64AA98C1DEA066500CB2325 /* AppDelegate.swift */,
-				C64AA98E1DEA066500CB2325 /* ViewController.swift */,
 				C64AA9901DEA066500CB2325 /* Main.storyboard */,
 				C64AA9931DEA066500CB2325 /* Assets.xcassets */,
 				C64AA9951DEA066500CB2325 /* LaunchScreen.storyboard */,
 				C64AA9981DEA066500CB2325 /* Info.plist */,
 			);
 			path = LoanCalculator;
+			sourceTree = "<group>";
+		};
+		C64AA9BE1DEC9B2C00CB2325 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C64AA98E1DEA066500CB2325 /* LoanCalcViewController.swift */,
+				C64AA9BC1DEC9B2400CB2325 /* LoanDetailViewController.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +146,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C64AA98F1DEA066500CB2325 /* ViewController.swift in Sources */,
+				C64AA98F1DEA066500CB2325 /* LoanCalcViewController.swift in Sources */,
 				C64AA98D1DEA066500CB2325 /* AppDelegate.swift in Sources */,
+				C64AA9BD1DEC9B2400CB2325 /* LoanDetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +265,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.seanfulcher.LoanCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -264,6 +277,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.seanfulcher.LoanCalculator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -286,6 +300,7 @@
 				C64AA99D1DEA066500CB2325 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
