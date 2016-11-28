@@ -7,13 +7,30 @@
 //
 
 import UIKit
+import MessageUI
 
-class LoanDetailViewController: UIViewController {
+class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
     @IBOutlet weak var LoanDetailTextView: UITextView!
     @IBOutlet weak var emailButton: UIButton!
     @IBOutlet weak var returnButton: UIButton!
     @IBAction func emailButtonClick(sender: AnyObject) {
+        if MFMailComposeViewController.canSendMail()
+        {
+            var mailVC = MFMailComposeViewController()
+            
+            mailVC.setSubject("Your Loan Information")
+            mailVC.setToRecipients(["seanfulcher@yahoo.com"])
+            mailVC.setMessageBody(loanDetailResultData!, isHTML: false)
+            mailVC.mailComposeDelegate = self;
+            
+            self.presentViewController((mailVC), animated: true, completion: nil)
+            
+        }
+        else
+        {
+            print("This Device isn't setup to email")
+        }
     }
     @IBAction func returnButtonClick(sender: AnyObject) {
     }

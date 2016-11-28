@@ -62,12 +62,22 @@ class LoanCalcViewController: UIViewController {
         let lPayment = loanAmt!/loanP
         let lTC = n! * lPayment
         let lIC = lTC - loanAmt!
+        let currencyFormater = NSNumberFormatter()
+        currencyFormater.numberStyle = NSNumberFormatterStyle.CurrencyStyle
+        currencyFormater.locale = NSLocale(localeIdentifier: "en_US")
         
-        loanDetailData = "Loan Amount: " + loanAmount.text! +
+        let loan = currencyFormater.stringFromNumber(loanAmt!)
+        let rate =  NSString(format: "%.\(2)f%%",loanR!) as! String
+        let payment = currencyFormater.stringFromNumber(lPayment)
+        let interest = currencyFormater.stringFromNumber(lIC)
+        let loanCost = currencyFormater.stringFromNumber(lTC)
+        
+        loanDetailData = "Loan Amount: " + loan! +
             "\n\n" + loanTermLable.text! + ": " + loanTermLength.text! +
-            "\n\n" + "Loan Payment: " + String(lPayment) +
-            "\n\n" + "Total Interest For Loan: " + String(lIC) +
-            "\n\n" + "Total Loan Cost: " + String(lTC)
+            "\n\n" + "Loan Rate: " + rate +
+            "\n\n" + "Loan Payment: " + payment! +
+            "\n\n" + "Total Interest For Loan: " + interest! +
+            "\n\n" + "Total Loan Cost: " + loanCost!
         
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
