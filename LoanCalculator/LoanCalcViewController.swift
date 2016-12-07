@@ -41,7 +41,7 @@ class LoanCalcViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -80,11 +80,11 @@ class LoanCalcViewController: UIViewController {
         let loanCost = currencyFormater.stringFromNumber(lTC)
         
         loanDetailData = "Loan Amount: " + loan! +
-            "\n\n" + loanTermLable.text! + ": " + loanTermLength.text! +
-            "\n\n" + "Loan Rate: " + rate +
-            "\n\n" + "Loan Payment: " + payment! +
-            "\n\n" + "Total Interest For Loan: " + interest! +
-            "\n\n" + "Total Loan Cost: " + loanCost!
+            "\n" + loanTermLable.text! + ": " + loanTermLength.text! +
+            "\n" + "Loan Rate: " + rate +
+            "\n" + "Loan Payment: " + payment! +
+            "\n" + "Total Interest For Loan: " + interest! +
+            "\n" + "Total Loan Cost: " + loanCost!
         }
         else
         {
@@ -105,6 +105,8 @@ class LoanCalcViewController: UIViewController {
         let loanDetailControl = segue.destinationViewController as! LoanDetailViewController
         loanDetailControl.loanDetailResultData = loanDetailData
     }
+    
+    
 
 }
 

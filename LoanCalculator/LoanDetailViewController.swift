@@ -49,6 +49,7 @@ class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        LoanDetailTextView.text = ""
         LoanDetailTextView.text = loanDetailResultData
         // Do any additional setup after loading the view.
     }
@@ -94,7 +95,7 @@ class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDel
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluateWithObject(testStr)
     }
-
+   
     /*
     // MARK: - Navigation
 
