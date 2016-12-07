@@ -434,6 +434,13 @@
                                 <exclude reference="7MK-eN-q0M"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="3xg-hx-JTo"/>
+                                <exclude reference="Ahr-PQ-GuL"/>
+                                <exclude reference="PdC-Lb-dU5"/>
+                                <exclude reference="tu6-Po-q7F"/>
+                                <exclude reference="paB-wI-en8"/>
+                                <exclude reference="rZK-nt-yBT"/>
+                                <exclude reference="OJK-oZ-bjt"/>
                                 <exclude reference="1zr-57-lUR"/>
                                 <exclude reference="4MB-hf-Zfv"/>
                                 <exclude reference="O2v-MY-iEa"/>
@@ -442,13 +449,6 @@
                                 <exclude reference="Fjg-OP-vZN"/>
                                 <exclude reference="KFX-Km-IxZ"/>
                                 <exclude reference="wjK-cH-wjL"/>
-                                <exclude reference="OJK-oZ-bjt"/>
-                                <exclude reference="Ahr-PQ-GuL"/>
-                                <exclude reference="PdC-Lb-dU5"/>
-                                <exclude reference="tu6-Po-q7F"/>
-                                <exclude reference="paB-wI-en8"/>
-                                <exclude reference="rZK-nt-yBT"/>
-                                <exclude reference="3xg-hx-JTo"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular">
@@ -464,6 +464,13 @@
                                 <include reference="JY9-wO-1ag"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="3xg-hx-JTo"/>
+                                <include reference="Ahr-PQ-GuL"/>
+                                <include reference="PdC-Lb-dU5"/>
+                                <include reference="tu6-Po-q7F"/>
+                                <include reference="paB-wI-en8"/>
+                                <include reference="rZK-nt-yBT"/>
+                                <include reference="OJK-oZ-bjt"/>
                                 <include reference="1zr-57-lUR"/>
                                 <include reference="4MB-hf-Zfv"/>
                                 <include reference="O2v-MY-iEa"/>
@@ -472,13 +479,6 @@
                                 <include reference="Fjg-OP-vZN"/>
                                 <include reference="KFX-Km-IxZ"/>
                                 <include reference="wjK-cH-wjL"/>
-                                <include reference="OJK-oZ-bjt"/>
-                                <include reference="Ahr-PQ-GuL"/>
-                                <include reference="PdC-Lb-dU5"/>
-                                <include reference="tu6-Po-q7F"/>
-                                <include reference="paB-wI-en8"/>
-                                <include reference="rZK-nt-yBT"/>
-                                <include reference="3xg-hx-JTo"/>
                             </mask>
                         </variation>
                     </view>
