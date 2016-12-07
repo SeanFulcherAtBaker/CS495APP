@@ -4,6 +4,7 @@
 //
 //  Created by Sean Fulcher on 11/28/16.
 //  Copyright © 2016 Sean Fulcher. All rights reserved.
+//Released For grading
 //
 
 import UIKit
@@ -13,34 +14,49 @@ class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDel
 
     @IBOutlet weak var LoanDetailTextView: UITextView!
     @IBOutlet weak var emailButton: UIButton!
-    @IBOutlet weak var returnButton: UIButton!
+   
+    @IBOutlet weak var emailTo: UITextField!
     @IBAction func emailButtonClick(sender: AnyObject) {
-        if MFMailComposeViewController.canSendMail()
-        {
-            var mailVC = MFMailComposeViewController()
+        if (isValidEmail(emailTo.text!)){
+            if MFMailComposeViewController.canSendMail()
+            {
+                var mailVC = MFMailComposeViewController()
+                
+                mailVC.setSubject("Your Loan Information")
+                mailVC.setToRecipients([emailTo.text!])
+                mailVC.setMessageBody(loanDetailResultData!, isHTML: false)
+                mailVC.mailComposeDelegate = self;
             
-            mailVC.setSubject("Your Loan Information")
-            mailVC.setToRecipients(["seanfulcher@yahoo.com"])
-            mailVC.setMessageBody(loanDetailResultData!, isHTML: false)
-            mailVC.mailComposeDelegate = self;
+                self.presentViewController((mailVC), animated: true, completion: nil)
             
-            self.presentViewController((mailVC), animated: true, completion: nil)
-            
+            }
+            else
+            {
+                print("This Device isn't setup to email")
+            }
         }
         else
         {
-            print("This Device isn't setup to email")
+            let alertController = UIAlertController(title: "Email To Error", message: "Please Enter a Vailid Email Address", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+            
         }
     }
-    @IBAction func returnButtonClick(sender: AnyObject) {
-        
-    }
+    
     var loanDetailResultData: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        LoanDetailTextView.text = ""
         LoanDetailTextView.text = loanDetailResultData
         // Do any additional setup after loading the view.
+    }
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
     }
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         let alerMessage: String
@@ -73,8 +89,14 @@ class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
+    func isValidEmail(testStr:String) -> Bool {
+        // print("validate calendar: \(testStr)")
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluateWithObject(testStr)
+    }
+   
     /*
     // MARK: - Navigation
 

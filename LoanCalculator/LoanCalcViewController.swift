@@ -17,8 +17,14 @@ class LoanCalcViewController: UIViewController {
     @IBOutlet weak var calculateLoan: UIButton!
     @IBOutlet weak var resetScreen: UIButton!
     @IBOutlet weak var loanTermLable: UILabel!
+    @IBAction func resetScreenButtonClick(sender: AnyObject) {
+        loanAmount.text = ""
+        loanTermLength.text = ""
+        loanIntRate.text = ""
+        termYearOrMonths.on = true
+    }
     @IBAction func calculateButtonClick(sender: AnyObject) {
-        buildResults()
+       buildResults()
     }
     
     @IBAction func loanTermSwitch(sender: AnyObject) {
@@ -35,7 +41,7 @@ class LoanCalcViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,6 +52,7 @@ class LoanCalcViewController: UIViewController {
         let loanAmt = Double(loanAmount.text!)
         let loanR = Double(loanIntRate.text!)
         let loanT = Double(loanTermLength.text!)
+        if(loanAmt>0 && loanR>0 && loanT>0){
         var n: Double?
         
         if !termYearOrMonths.on
@@ -73,17 +80,33 @@ class LoanCalcViewController: UIViewController {
         let loanCost = currencyFormater.stringFromNumber(lTC)
         
         loanDetailData = "Loan Amount: " + loan! +
-            "\n\n" + loanTermLable.text! + ": " + loanTermLength.text! +
-            "\n\n" + "Loan Rate: " + rate +
-            "\n\n" + "Loan Payment: " + payment! +
-            "\n\n" + "Total Interest For Loan: " + interest! +
-            "\n\n" + "Total Loan Cost: " + loanCost!
+            "\n" + loanTermLable.text! + ": " + loanTermLength.text! +
+            "\n" + "Loan Rate: " + rate +
+            "\n" + "Loan Payment: " + payment! +
+            "\n" + "Total Interest For Loan: " + interest! +
+            "\n" + "Total Loan Cost: " + loanCost!
+        }
+        else
+        {
+            
+            let alertController = UIAlertController(title: "Invalid Loand Entry", message: "Please Enter Vailid Loan Amount, Rate, and Term", preferredStyle: .Alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            presentViewController(alertController, animated: true, completion: nil)
+        }
         
+    }
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+        view.endEditing(true)
+        super.touchesBegan(touches, withEvent: event)
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let loanDetailControl = segue.destinationViewController as! LoanDetailViewController
         loanDetailControl.loanDetailResultData = loanDetailData
     }
+    
+    
 
 }
 
