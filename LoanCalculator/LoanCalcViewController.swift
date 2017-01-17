@@ -2,12 +2,36 @@
 //  ViewController.swift
 //  LoanCalculator
 //
-//  Created by Sean Fulcher on 11/26/16.
-//  Last Update on 12/10/2016
-//  Copyright © 2016 Sean Fulcher. All rights reserved.
+//  Created by Sean Fulcher on 01/13/2017.
+//  Last Update on 01/17/2017
+//  Copyright © 2017 Sean Fulcher. All rights reserved.
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l > r
+  default:
+    return rhs < lhs
+  }
+}
+
 
 class LoanCalcViewController: UIViewController {
 
@@ -18,18 +42,18 @@ class LoanCalcViewController: UIViewController {
     @IBOutlet weak var calculateLoan: UIButton!
     @IBOutlet weak var resetScreen: UIButton!
     @IBOutlet weak var loanTermLable: UILabel!
-    @IBAction func resetScreenButtonClick(sender: AnyObject) {
+    @IBAction func resetScreenButtonClick(_ sender: AnyObject) {
         loanAmount.text = ""
         loanTermLength.text = ""
         loanIntRate.text = ""
-        termYearOrMonths.on = true
+        termYearOrMonths.isOn = true
     }
-    @IBAction func calculateButtonClick(sender: AnyObject) {
+    @IBAction func calculateButtonClick(_ sender: AnyObject) {
        buildResults()
     }
     
-    @IBAction func loanTermSwitch(sender: AnyObject) {
-        if termYearOrMonths.on
+    @IBAction func loanTermSwitch(_ sender: AnyObject) {
+        if termYearOrMonths.isOn
         {
             loanTermLable.text = "Number of Years"
         }
@@ -38,7 +62,13 @@ class LoanCalcViewController: UIViewController {
             loanTermLable.text = "Number of Months"
         }
     }
-    var loanDetailData: String?
+    var loanDetailAmt: String?
+    var loanDetailTerm: String?
+    var loanDetailRate: String?
+    var loanDetailPayment: String?
+    var loanDetailTotalIntrest: String?
+    var loanDetailTotalCost: String?
+    var loanDetailEmail: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +86,7 @@ class LoanCalcViewController: UIViewController {
         if(loanAmt>0 && loanR>0 && loanT>0){
         var n: Double?
         
-        if !termYearOrMonths.on
+        if !termYearOrMonths.isOn
         {
                 n = loanT
         }
@@ -70,41 +100,56 @@ class LoanCalcViewController: UIViewController {
         let lPayment = loanAmt!/loanP
         let lTC = n! * lPayment
         let lIC = lTC - loanAmt!
-        let currencyFormater = NSNumberFormatter()
-        currencyFormater.numberStyle = NSNumberFormatterStyle.CurrencyStyle
-        currencyFormater.locale = NSLocale(localeIdentifier: "en_US")
+        let currencyFormater = NumberFormatter()
+        currencyFormater.numberStyle = NumberFormatter.Style.currency
+        currencyFormater.locale = Locale(identifier: "en_US")
         
-        let loan = currencyFormater.stringFromNumber(loanAmt!)
-        let rate =  NSString(format: "%.\(2)f%%",loanR!) as! String
-        let payment = currencyFormater.stringFromNumber(lPayment)
-        let interest = currencyFormater.stringFromNumber(lIC)
-        let loanCost = currencyFormater.stringFromNumber(lTC)
+            let loan = currencyFormater.string(from: NSNumber(value: loanAmt!))
+            let rate =  NSString(format: "%.\(2)f%%" as NSString,loanR!) as String
+            let payment = currencyFormater.string(from: NSNumber(value: lPayment))
+            let interest = currencyFormater.string(from: NSNumber(value: lIC))
+            let loanCost = currencyFormater.string(from: NSNumber(value: lTC))
         
-        loanDetailData = "Loan Amount: " + loan! +
+        loanDetailEmail = "Loan Amount: " + loan! +
             "\n" + loanTermLable.text! + ": " + loanTermLength.text! +
             "\n" + "Loan Rate: " + rate +
             "\n" + "Loan Payment: " + payment! +
             "\n" + "Total Interest For Loan: " + interest! +
             "\n" + "Total Loan Cost: " + loanCost!
+            
+            loanDetailAmt = "Loan Amount: " + loan!
+            loanDetailTerm = loanTermLable.text! + ": " + loanTermLength.text!
+            loanDetailRate = "Loan Rate: " + rate
+            loanDetailPayment = "Loan Payment: " + payment!
+            loanDetailTotalIntrest = "Total Interest For Loan: " + interest!
+            loanDetailTotalCost = "Total Loan Cost: " + loanCost!
+            
         }
         else
         {
             
-            let alertController = UIAlertController(title: "Invalid Loand Entry", message: "Please Enter Vailid Loan Amount, Rate, and Term", preferredStyle: .Alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+            let alertController = UIAlertController(title: "Invalid Loand Entry", message: "Please Enter Vailid Loan Amount, Rate, and Term", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(defaultAction)
             
-            presentViewController(alertController, animated: true, completion: nil)
+            present(alertController, animated: true, completion: nil)
         }
         
     }
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?){
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         view.endEditing(true)
-        super.touchesBegan(touches, withEvent: event)
+        super.touchesBegan(touches, with: event)
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let loanDetailControl = segue.destinationViewController as! LoanDetailViewController
-        loanDetailControl.loanDetailResultData = loanDetailData
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let loanDetailControl = segue.destination as! LoanDetailViewController
+        loanDetailControl.loanDetailAmt = loanDetailAmt
+        loanDetailControl.loanDetailTerm = loanDetailTerm
+        loanDetailControl.loanDetailRate = loanDetailRate
+        loanDetailControl.loanDetailPayment = loanDetailPayment
+        loanDetailControl.loanDetailTotalIntrest = loanDetailTotalIntrest
+        loanDetailControl.loanDetailTotalCost = loanDetailTotalCost
+        loanDetailControl.loanDetailResultData = loanDetailEmail
+
     }
     
     
