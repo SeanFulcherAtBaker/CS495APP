@@ -49,7 +49,7 @@ class LoanCalcViewController: UIViewController {
         termYearOrMonths.isOn = true
     }
     @IBAction func calculateButtonClick(_ sender: AnyObject) {
-       buildResults()
+       calculateResults()
     }
     
     @IBAction func loanTermSwitch(_ sender: AnyObject) {
@@ -79,7 +79,7 @@ class LoanCalcViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    func buildResults(){
+    func calculateResults(){
         let loanAmt = Double(loanAmount.text!)
         let loanR = Double(loanIntRate.text!)
         let loanT = Double(loanTermLength.text!)
