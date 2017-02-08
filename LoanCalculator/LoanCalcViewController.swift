@@ -42,14 +42,39 @@ class LoanCalcViewController: UIViewController {
     @IBOutlet weak var calculateLoan: UIButton!
     @IBOutlet weak var resetScreen: UIButton!
     @IBOutlet weak var loanTermLable: UILabel!
+   //Resets all screen textboxs
     @IBAction func resetScreenButtonClick(_ sender: AnyObject) {
         loanAmount.text = ""
         loanTermLength.text = ""
         loanIntRate.text = ""
         termYearOrMonths.isOn = true
     }
+    //Calculate Button Click
     @IBAction func calculateButtonClick(_ sender: AnyObject) {
-       calculateResults()
+       let loanAmt = Double(loanAmount.text!)
+        //Validates Loan Amount
+        if loanAmt!>=1000
+        {
+            //Validates Loan Term
+            if verifyLoanTerm()
+            {
+                //Validate Loan Rate
+                if verifyLoanRate()
+                {
+                    calculateResults()
+                }
+            }
+            
+        }
+        else
+        {
+            let alertController = UIAlertController(title: "Invalid Loan Amount Entry", message: "Please Enter Minium Loan Amount of 1000 ", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            present(alertController, animated: true, completion: nil)
+            
+        }
     }
     
     @IBAction func loanTermSwitch(_ sender: AnyObject) {
@@ -79,11 +104,61 @@ class LoanCalcViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    //Validates Loan Term to be <=10 years
+    func  verifyLoanTerm() ->Bool{
+        var isValid=false
+        let loanTerm = Double(loanTermLength.text!)
+        if (termYearOrMonths.isOn && loanTerm!<=10)
+        {
+            isValid=true
+            
+        }
+        else if (!termYearOrMonths.isOn && loanTerm!<=120)
+        {
+            isValid=true
+            
+        }
+        
+        if !isValid
+        {
+            let alertController = UIAlertController(title: "Invalid Loan Term Entry", message: "Please Enter Vailid Loan Term that is Less than or Equal to 10 Years or 120 months", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            present(alertController, animated: true, completion: nil)
+
+        }
+        
+        return isValid
+    }
+    func  verifyLoanRate() ->Bool{
+        var isValid=false
+        let loanRate = Double(loanIntRate.text!)
+        if (loanRate!>=0.25 && loanRate!<=100)
+        {
+            isValid=true
+            
+        }
+        
+        
+        if !isValid
+        {
+            let alertController = UIAlertController(title: "Invalid Loan Rate Entry", message: "Please Enter Vailid Loan Rate from .25 to 100", preferredStyle: .alert)
+            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(defaultAction)
+            
+            present(alertController, animated: true, completion: nil)
+            
+        }
+        
+        return isValid
+    }
+    //Caclulates Loan Payment
     func calculateResults(){
         let loanAmt = Double(loanAmount.text!)
         let loanR = Double(loanIntRate.text!)
         let loanT = Double(loanTermLength.text!)
-        if(loanAmt>0 && loanR>0 && loanT>0){
+        //if(loanAmt>0 && loanR>0 && loanT>0){
         var n: Double?
         
         if !termYearOrMonths.isOn
@@ -124,16 +199,16 @@ class LoanCalcViewController: UIViewController {
             loanDetailTotalIntrest = "Total Interest For Loan: " + interest!
             loanDetailTotalCost = "Total Loan Cost: " + loanCost!
             
-        }
-        else
-        {
+        //}
+        //else
+        //{
             
-            let alertController = UIAlertController(title: "Invalid Loand Entry", message: "Please Enter Vailid Loan Amount, Rate, and Term", preferredStyle: .alert)
-            let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            alertController.addAction(defaultAction)
+            //let alertController = UIAlertController(title: "Invalid Loand Entry", message: "Please Enter Vailid Loan Amount, Rate, and Term", preferredStyle: .alert)
+            //let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            //alertController.addAction(defaultAction)
             
-            present(alertController, animated: true, completion: nil)
-        }
+            //present(alertController, animated: true, completion: nil)
+        //}
         
     }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
