@@ -26,9 +26,8 @@
       "scale" : "3x"
     },
     {
-      "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "LoanCalcIcon40pt.png",
+      "size" : "40x40",
       "scale" : "2x"
     },
     {
@@ -37,9 +36,8 @@
       "scale" : "3x"
     },
     {
-      "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "LoanCalcIcon57pt.png",
+      "size" : "57x57",
       "scale" : "1x"
     },
     {
@@ -48,9 +46,8 @@
       "scale" : "2x"
     },
     {
-      "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "LoanCalcIcon60pt.png",
+      "size" : "60x60",
       "scale" : "2x"
     },
     {
