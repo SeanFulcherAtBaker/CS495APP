@@ -3,7 +3,7 @@
 //  LoanCalculator
 //
 //  Created by Sean Fulcher on 01/13/2017.
-//  Last Update on 01/17/2017
+//  Last Update on 02/09/2017
 //  Copyright © 2017 Sean Fulcher. All rights reserved.
 
 
@@ -22,6 +22,7 @@ class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDel
     @IBOutlet weak var loanTermLabel: UILabel!
     @IBOutlet weak var loanAmtLabel: UILabel!
     @IBOutlet weak var emailTo: UITextField!
+    //handels emailing of loan detail
     @IBAction func emailButtonClick(_ sender: AnyObject) {
         if (isValidEmail(emailTo.text!)){
             if MFMailComposeViewController.canSendMail()
@@ -36,13 +37,17 @@ class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDel
                 self.present((mailVC), animated: true, completion: nil)
             
             }
-            else
+            /*
+             else
             {
+                //used for testing
                 print("This Device isn't setup to email")
             }
+             */
         }
         else
         {
+            //lets user know there is an issue with email
             let alertController = UIAlertController(title: "Email To Error", message: "Please Enter a Vailid Email Address", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(defaultAction)
@@ -51,7 +56,7 @@ class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDel
             
         }
     }
-    
+    //varables that hold data passed from Loan Calculator View
     var loanDetailResultData: String?
     var loanDetailAmt: String?
     var loanDetailTerm: String?
@@ -59,7 +64,7 @@ class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDel
     var loanDetailPayment: String?
     var loanDetailTotalIntrest: String?
     var loanDetailTotalCost: String?
-    
+    //Loands varables passed from Loan Calcultor View
     override func viewDidLoad() {
         super.viewDidLoad()
         LoanDetailTextView.text = ""
@@ -78,10 +83,12 @@ class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDel
         loanTotalCostLabel.text = loanDetailTotalCost
         // Do any additional setup after loading the view.
     }
+    //clears screen keyboard
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
     }
+    //email controler used to send email also notifys user if there is an email problem
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         let alerMessage: String
         switch result.rawValue{
@@ -102,6 +109,7 @@ class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDel
             alerMessage = "Unknown Error";
             
         }
+        //lets user know if email was sent or if there was an issue
         let alertController = UIAlertController(title: "Email", message: alerMessage, preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(defaultAction)
@@ -113,6 +121,7 @@ class LoanDetailViewController: UIViewController, MFMailComposeViewControllerDel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    //validates email addresss
     func isValidEmail(_ testStr:String) -> Bool {
         // print("validate calendar: \(testStr)")
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"

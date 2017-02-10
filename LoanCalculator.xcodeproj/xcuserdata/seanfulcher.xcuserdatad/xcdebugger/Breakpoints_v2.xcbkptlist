@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LoanCalculator/LoanCalcViewController.swift"
-            timestampString = "508207798.060573"
+            timestampString = "508380611.679337"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "prepare(for:sender:)"
             landmarkType = "7">
          </BreakpointContent>

@@ -3,7 +3,7 @@
 //  LoanCalculator
 //
 //  Created by Sean Fulcher on 01/13/2017.
-//  Last Update on 01/17/2017
+//  Last Update on 02/09/2017
 //  Copyright © 2017 Sean Fulcher. All rights reserved.
 //
 
@@ -68,6 +68,7 @@ class LoanCalcViewController: UIViewController {
         }
         else
         {
+            //Alerts user to invalid loan amount entered
             let alertController = UIAlertController(title: "Invalid Loan Amount Entry", message: "Please Enter Minium Loan Amount of 1000 ", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(defaultAction)
@@ -76,7 +77,7 @@ class LoanCalcViewController: UIViewController {
             
         }
     }
-    
+    //switches between years and months for loan term
     @IBAction func loanTermSwitch(_ sender: AnyObject) {
         if termYearOrMonths.isOn
         {
@@ -87,13 +88,13 @@ class LoanCalcViewController: UIViewController {
             loanTermLable.text = "Number of Months"
         }
     }
-    var loanDetailAmt: String?
-    var loanDetailTerm: String?
-    var loanDetailRate: String?
-    var loanDetailPayment: String?
-    var loanDetailTotalIntrest: String?
-    var loanDetailTotalCost: String?
-    var loanDetailEmail: String?
+    var loanDetailAmt: String? //holds loan amount
+    var loanDetailTerm: String? //holds loan term
+    var loanDetailRate: String? //holds loan rate
+    var loanDetailPayment: String? //holds loan payment
+    var loanDetailTotalIntrest: String?//holds total interest for loan
+    var loanDetailTotalCost: String?//holds total loan cost
+    var loanDetailEmail: String?//holds formated email body
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,6 +122,7 @@ class LoanCalcViewController: UIViewController {
         
         if !isValid
         {
+            //alerts user to invalid loan term
             let alertController = UIAlertController(title: "Invalid Loan Term Entry", message: "Please Enter Vailid Loan Term that is Less than or Equal to 10 Years or 120 months", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(defaultAction)
@@ -131,6 +133,7 @@ class LoanCalcViewController: UIViewController {
         
         return isValid
     }
+    //verifys that rate in between .25 and 100 percent
     func  verifyLoanRate() ->Bool{
         var isValid=false
         let loanRate = Double(loanIntRate.text!)
@@ -143,6 +146,7 @@ class LoanCalcViewController: UIViewController {
         
         if !isValid
         {
+            //alerts user that loan rate is invlaid
             let alertController = UIAlertController(title: "Invalid Loan Rate Entry", message: "Please Enter Vailid Loan Rate from .25 to 100", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(defaultAction)
@@ -158,7 +162,7 @@ class LoanCalcViewController: UIViewController {
         let loanAmt = Double(loanAmount.text!)
         let loanR = Double(loanIntRate.text!)
         let loanT = Double(loanTermLength.text!)
-        //if(loanAmt>0 && loanR>0 && loanT>0){
+        
         var n: Double?
         
         if !termYearOrMonths.isOn
@@ -184,14 +188,14 @@ class LoanCalcViewController: UIViewController {
             let payment = currencyFormater.string(from: NSNumber(value: lPayment))
             let interest = currencyFormater.string(from: NSNumber(value: lIC))
             let loanCost = currencyFormater.string(from: NSNumber(value: lTC))
-        
+        //formats email body
         loanDetailEmail = "Loan Amount: " + loan! +
             "\n" + loanTermLable.text! + ": " + loanTermLength.text! +
             "\n" + "Loan Rate: " + rate +
             "\n" + "Loan Payment: " + payment! +
             "\n" + "Total Interest For Loan: " + interest! +
             "\n" + "Total Loan Cost: " + loanCost!
-            
+         //loads varables to be passed to laon detail view
             loanDetailAmt = "Loan Amount: " + loan!
             loanDetailTerm = loanTermLable.text! + ": " + loanTermLength.text!
             loanDetailRate = "Loan Rate: " + rate
@@ -199,22 +203,15 @@ class LoanCalcViewController: UIViewController {
             loanDetailTotalIntrest = "Total Interest For Loan: " + interest!
             loanDetailTotalCost = "Total Loan Cost: " + loanCost!
             
-        //}
-        //else
-        //{
-            
-            //let alertController = UIAlertController(title: "Invalid Loand Entry", message: "Please Enter Vailid Loan Amount, Rate, and Term", preferredStyle: .alert)
-            //let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-            //alertController.addAction(defaultAction)
-            
-            //present(alertController, animated: true, completion: nil)
-        //}
+        
         
     }
+    //Closes out screen keyboard
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
         view.endEditing(true)
         super.touchesBegan(touches, with: event)
     }
+    //Passes varables to Loan Detail View
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let loanDetailControl = segue.destination as! LoanDetailViewController
         loanDetailControl.loanDetailAmt = loanDetailAmt
